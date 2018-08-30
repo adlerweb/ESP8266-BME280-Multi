@@ -441,8 +441,10 @@ void setup() {
     Serial.println(F("HTTP-SRV started"));
     
     setup_wifi();
-    client.setServer(mqtt_server, mqtt_port);
-    client.setCallback(callback);
+    #ifdef USE_MQTT
+      client.setServer(mqtt_server, mqtt_port);
+      client.setCallback(callback);
+    #endif
   
     ArduinoOTA.setHostname(((String)WiFi.macAddress()).c_str());
     ArduinoOTA.onStart([]() {
@@ -488,9 +490,9 @@ void loop() {
     if (!client.connected()) {
       reconnect();
     }
+    client.loop();
   #endif
 
-  client.loop();
   server.handleClient();
 
   if(sendStats) {
