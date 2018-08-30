@@ -1,7 +1,7 @@
 /***************************************************************************
   BME280 Multi Output Thingy
   Reads an BME280 using ESP8266 and provides the results via Serial/USB,
-    an internal HTTP-Server, MQTT (with TLS) and HTTP-GET to a VolkszÃ¤hler
+    an internal HTTP-Server, MQTT (with TLS) and HTTP-GET to a Volkszähler
 
   This script requires the Adafruit BME280-Library. This library is
   Written by Limor Fried & Kevin Townsend for Adafruit Industries.
