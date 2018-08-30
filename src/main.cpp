@@ -4,8 +4,12 @@
     an internal HTTP-Server, MQTT (with TLS) and HTTP-GET to a Volkszähler
 
   This script requires the Adafruit BME280-Library. This library is
-  Written by Limor Fried & Kevin Townsend for Adafruit Industries.
-  BSD license, all text above must be included in any redistribution
+  written by Limor Fried & Kevin Townsend for Adafruit Industries.
+
+  This script requires the PubSubClient-Library. This library is
+  written by Nicholas O'Leary
+
+  This script is written by Florian Knodt - www.adlerweb.info
  ***************************************************************************/
 
 #include <Arduino.h>
