@@ -27,17 +27,20 @@ Every ***stats_interval*** seconds the following text will appear:
 
 ```
 T: 12.34 *C
+DP: 12.34 *C
 H: 12.34 %
+AH: 1.34 g/m3
+RP: 1234.56 hPa
 P: 1234.56 hPa
 ```
 
-T is temperature, H humidity and P pressure. As probably no one would have guessed.
+T is temperature, DP dew pont, H relative humidity, AH absolute humidity, RP relative pressure and P absolute pressure at sea level.
 
 If you're using Volkszähler additional debug output with the computed URLs and HTTP-Status will be present.
 
 ## HTTP-Server
 
-Just access the module using HTTP. You can get the modules IP using serial, MQTT or your routers DHCP-leases. You'll find temperature, humidity, pressure and a number of seconds since the last time the measurements where updated.
+Just access the module using HTTP. You can get the modules IP using serial, MQTT or your routers DHCP-leases. You'll find all values mentioned above. Every access triggers the module to gather a new set of values from the sensor, so the display should always display up to date measurements.
 
 Access /ota to start an OTA-update.
 
@@ -61,8 +64,11 @@ Every ***stats_interval*** seconds variable data will be published:
 /esp/bme280/uptime 123
 /esp/bme280/rssi 100
 /esp/bme280/get/temperature 12.34
+/esp/bme280/get/dewpoint 12.34
+/esp/bme280/get/humidity_abs 12.34
 /esp/bme280/get/humidity 12.34
 /esp/bme280/get/pressure 1234.56
+/esp/bme280/get/pressure_rel 1234.56
 
 Uptime is in seconds, RSSI in %.
 
@@ -73,4 +79,4 @@ Additional commands are:
 
 ## Volkszähler
 
-Add three new channels for the corresponding measurements using the frontend. Note the UUIDs and add them to the corresponding configuration values. Check ***vz_url*** points to your middleware.php/data.
+Add new channels for the corresponding measurements using the frontend. Note the UUIDs and add them to the corresponding configuration values. Check ***vz_url*** points to your middleware.php/data. If you do not want to record a specific measurement set the UUID to "".
