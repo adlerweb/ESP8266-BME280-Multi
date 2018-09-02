@@ -80,11 +80,6 @@ ESP8266WebServer server(80);
 #define MQTT_PRJ_HARDWARE "esp8266tls-bme280"
 #define MQTT_PRJ_VERSION "0.0.1"
 
-unsigned long lastTime;
-float temperature;
-float pressure;
-float humidity;
-
 #ifdef USE_MQTT
 class PubSubClientWrapper : public PubSubClient{
   private:
@@ -234,10 +229,9 @@ void sendStatsInterval(void) {
     client.publish(((String)mqtt_root + CONFIG_MQTT_TOPIC_STATUS_SIGNAL), rssiToPercentage(WiFi.RSSI()));
   #endif
 
-  temperature = bme.readTemperature();
-  humidity = bme.readHumidity();
-  pressure = bme.readPressure() / 100.0F;
-  lastTime = millis();
+  float temperature = bme.readTemperature();
+  float humidity = bme.readHumidity();
+  float pressure = bme.readPressure() / 100.0F;
 
   Serial.print(F("T: "));
   Serial.print((String)temperature);
@@ -380,15 +374,17 @@ void setup_wifi() {
 #endif
 
 void handleRoot() {
+  float temperature = bme.readTemperature();
+  float humidity = bme.readHumidity();
+  float pressure = bme.readPressure() / 100.0F;
+
   String out = "Temperatur: ";
   out += temperature;
   out += "*C\nHumidity: ";
   out += humidity;
   out += "%\nPressure: ";
   out += pressure;
-  out += "hPa\nAge: ";
-  out += ((millis() - lastTime) / 1000);
-  out += " Seconds";
+  out += "hPa";
   server.send(200, "text/plain", out);
 }
 
