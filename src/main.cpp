@@ -378,7 +378,7 @@ void handleRoot() {
   float humidity = bme.readHumidity();
   float pressure = bme.readPressure() / 100.0F;
 
-  String out = "Temperatur: ";
+  String out = "Temperature: ";
   out += temperature;
   out += "*C\nHumidity: ";
   out += humidity;
