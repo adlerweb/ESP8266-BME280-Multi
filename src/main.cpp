@@ -46,6 +46,8 @@ const char* mqtt_fprint = "aa bb cc dd ee ff 00 11 22 33 44 55 66 77 88 99 aa bb
 #define USE_VOLKSZAEHLER
 const char* vz_url = "http://192.168.1.1/middleware.php/data/";
 const char* vz_addcmd = ".json?operation=add&value=";
+
+//For UUIDs: Use "" to skip this measurement
 const char* vz_uuid_temp = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee1";
 const char* vz_uuid_hum  = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee2";
 const char* vz_uuid_pres = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee3";
@@ -177,6 +179,8 @@ void ipToString(const IPAddress& ip, char * str) {
 
 #ifdef USE_VOLKSZAEHLER
   bool sendVz(const char* uuid, float value) {
+
+    if(strlen(uuid) == 0) return true;
 
     HTTPClient http;
     bool ret = false;
