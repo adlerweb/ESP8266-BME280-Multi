@@ -52,8 +52,8 @@ const char* vz_uuid_temp   = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee1";  //Temperat
 const char* vz_uuid_dew    = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee2";  //Dew point (°C)
 const char* vz_uuid_hum    = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee3";  //Absolute humidity (g/m3)
 const char* vz_uuid_hum_r  = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee4";  //Relative humidity (%)
-const char* vz_uuid_pres   = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee5";  //Absolute atmospheric pressure (hPa @ sea level)
-const char* vz_uuid_pres_r = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee6";  //Relative atmospheric pressure
+const char* vz_uuid_pres   = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee5";  //Absolute atmospheric pressure
+const char* vz_uuid_pres_r = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeee6";  //Relative atmospheric pressure (hPa @ sea level)
 
 //periodic status reports
 const unsigned int stats_interval = 60;  // Update statistics and measure every 60 seconds
@@ -245,8 +245,8 @@ void sendStatsInterval(void) {
   float temperature = bme.readTemperature();
   float humidity_r = bme.readHumidity();
   float humidity = absoluteHumidity(temperature, humidity_r);
-  float pressure_r = bme.readPressure() / 100.0F;
-  float pressure = bme.seaLevelForAltitude(ALTITUDE, pressure_r);
+  float pressure = bme.readPressure() / 100.0F;
+  float pressure_r = bme.seaLevelForAltitude(ALTITUDE, pressure_r);
   float dew = dewPoint(temperature, humidity_r);
 
   Serial.print(F("T: "));
