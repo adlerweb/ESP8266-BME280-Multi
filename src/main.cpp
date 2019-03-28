@@ -246,7 +246,7 @@ void sendStatsInterval(void) {
   float humidity_r = bme.readHumidity();
   float humidity = absoluteHumidity(temperature, humidity_r);
   float pressure = bme.readPressure() / 100.0F;
-  float pressure_r = bme.seaLevelForAltitude(ALTITUDE, pressure_r);
+  float pressure_r = bme.seaLevelForAltitude(ALTITUDE, pressure);
   float dew = dewPoint(temperature, humidity_r);
 
   Serial.print(F("T: "));
@@ -407,7 +407,7 @@ void setup_wifi() {
 void handleRoot() {
   float temperature = bme.readTemperature();
   float humidity_r = bme.readHumidity();
-  float pressure_r = bme.readPressure() / 100.0F;
+  float pressure = bme.readPressure() / 100.0F;
   
   String out = "Temperature: ";
   out += temperature;
@@ -418,9 +418,9 @@ void handleRoot() {
   out += "%\nAbsolute Humidity: ";
   out += absoluteHumidity(temperature, humidity_r);
   out += "g/m3\nRelative Pressure: ";
-  out += pressure_r;
+  out += bme.seaLevelForAltitude(ALTITUDE, pressure);
   out += "hPa\nAbsolute Pressure: ";
-  out += bme.seaLevelForAltitude(ALTITUDE, pressure_r);
+  out +=  pressure;
   out += "hPa";
   server.send(200, "text/plain", out);
 }
